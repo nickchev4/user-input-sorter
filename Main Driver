@@ -1,0 +1,42 @@
+package org.example;
+
+public class Main {
+    public static void main(String[] args) {
+
+        UnsortedArray arr = new UnsortedArray();
+        Sorter s = new Sorter();
+        //Prints unsorted array as an example
+        arr.storeNumbers();
+        System.out.println("The unsorted array is ");
+        for(int i = 0; i < arr.randomNums.length; i++){
+            System.out.print("[" + arr.randomNums[i] + "]");
+        }
+        //Takes user input for merge sort and prints new sorted array
+        System.out.println();
+        System.out.println("The array using Merge Sort is ");
+        s.mergeSort(arr,0,arr.randomNums.length-1);
+        for(int i = 0; i < arr.randomNums.length; i++){
+            System.out.print("[" + arr.randomNums[i] + "]");
+        }
+        //Takes user input for insertion sort and prints another sorted array
+        System.out.println();
+        //New, randomized set of numbers to demonstrate the next algorithm
+        System.out.println("Now, for another random set of numbers...");
+        arr.storeNumbers();
+        System.out.println("The array using Insertion Sort is: ");
+        s.insertionSort(arr);
+        for(int i = 0; i < arr.randomNums.length; i++){
+            System.out.print("[" +arr.randomNums[i] + "]");
+        }
+        System.out.println();
+        //New randomized array for bubble sort algorithm
+        System.out.println("One more randomized array...");
+        arr.storeNumbers();
+        System.out.println("The array using bubble sort is:");
+        int n = arr.randomNums.length;
+        s.bubbleSort(arr,n);
+        for(int i = 0; i < arr.randomNums.length; i++){
+            System.out.print("[" +arr.randomNums[i] + "]");
+        }
+    }
+}
