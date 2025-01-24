@@ -1,0 +1,68 @@
+/*
+    Test class for the Sorter object that insures all three sorting algorithms
+    can take an array as a parameter and sort it in ascending order.
+ */
+public class SorterTests {
+
+    //Creates instances of UnsortedArray and Sorter classes for test cases
+    UnsortedArray testArr = new UnsortedArray();
+    Sorter testSort = new Sorter();
+
+    //Tests merging two arrays when they are already sorted
+    @Test
+    public void mergeSortedArrays() {
+        //instance of array with random values to test
+        testArr.randomNums = new int[]{1,3,5,2,4,6};
+        testSort.merge(testArr,0,2,5);
+        assertArrayEquals(new int[]{1,2,3,4,5,6}, testArr.randomNums);
+    }
+
+    //Tests merging halves when i is odd and halves are unequal
+    @Test
+    public void mergeUnequalSubarrays() {
+        testArr.randomNums = new int[]{1,7,8,2,3};
+        testSort.merge(testArr,0,2,4);
+        assertArrayEquals(new int[]{1,2,3,7,8},testArr.randomNums);
+    }
+
+    @Test
+    //Tests if arrays with single-element halves are sorted correctly
+    public void testSingleElement(){
+        testArr.randomNums = new int[]{1,2};
+        testSort.merge(testArr,0,0,1);
+        assertArrayEquals(new int[]{1,2},testArr.randomNums);
+    }
+
+    @Test
+    //Tests if Insertion Sort method will sort an array with duplicate elements
+    public void testDuplicatesInsertionSort() {
+        testArr.randomNums = new int[]{9,2,2,5,3};
+        testSort.insertionSort(testArr);
+        assertArrayEquals(new int[]{2,2,3,5,9}, testArr.randomNums);
+    }
+
+    //Tests if insertion sort will sort an array with negative integers
+    @Test
+    public void testNegativeInsertionSort(){
+        testArr.randomNums = new int[]{44,-3,89,-6,77};
+        testSort.insertionSort(testArr);
+        assertArrayEquals(new int[]{-6,-3,44,77,89}, testArr.randomNums);
+    }
+
+    //Tests if bubble sort can swap duplicate values and still sort correctly
+    @Test
+    public void testBubbleSortDuplicates() {
+        testArr.randomNums = new int[]{4,2,3,8,7,3};
+        testSort.bubbleSort(testArr,testArr.randomNums.length);
+        assertArrayEquals(new int[]{2,3,3,4,7,8},testArr.randomNums);
+    }
+
+    //Tests if bubble sort can correctly sort a reverse-sorted array,
+    //which requires bubble sort to swap every pair of elements (worst-case runtime)
+    @Test
+    public void testReverseBubbleSort(){
+        testArr.randomNums = new int[]{10,8,6,4,2};
+        testSort.bubbleSort(testArr,testArr.randomNums.length);
+        assertArrayEquals(new int[]{2,4,6,8,10}, testArr.randomNums);
+    }
+}
