@@ -1,0 +1,118 @@
+package org.example;
+
+/**
+ * This is the sorter class. The sorter class has three different sorting algorithms
+ * that can be called to sort an array of unsorted integers. The algorithms take
+ * an instance of the unsorted array class.
+ */
+public class Sorter {
+
+    /*
+        Merge Sort merges two subarrays, [left-mid] and [m+1-right].
+        It assumes a base case of array[i] where i = 1 and returns
+        the already sorted array.
+     */
+
+    public static void merge(UnsortedArray arr, int left, int mid, int right){
+        int leftCount = mid-left+1;
+        int rightCount = right-mid;
+        //Temporary Arrays
+        int L[] = new int[leftCount];
+        int R[] = new int[rightCount];
+        //Copy data to temps
+        for(int i = 0; i < leftCount; ++i)
+            //stores data in user-inputted array from the UnsortedArray class
+            L[i] = arr.randomNums[left+i];
+        for(int j = 0; j < rightCount; ++j)
+            R[j] = arr.randomNums[mid+1+j];
+        //Merge temps
+        int i = 0;
+        int j = 0;
+        int k = left;
+        //Merges the initial indicies of the first and second subarrays depending on
+        //which subarray's index is larger
+        while(i < leftCount && j < rightCount){
+            if(L[i] <= R[j]){
+                arr.randomNums[k] = L[i];
+                i++;
+            }else{
+                arr.randomNums[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        //Copy remaining L elements
+        while(i < leftCount){
+            arr.randomNums[k] = L[i];
+            i++;
+            k++;
+        }
+        //Copy remaining R elements
+        while(j < rightCount){
+            arr.randomNums[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    //Main merge sort function that calls upon merge function
+    public static void mergeSort(UnsortedArray arr, int left, int right){
+        if(left < right){
+            //Find midpoint
+            int mid = left+(right-left)/2;
+            //Sort the halves
+            mergeSort(arr,left,mid);
+            mergeSort(arr,mid+1, right);
+            //Merge them
+            merge(arr,left,mid,right);
+        }
+    }
+
+    /*
+    Insertion Sort
+    Compares each element (key) to the adjacent element, and if it is greater,
+    it stays where it is. If it is smaller, it traverses left down the array until
+    the key element is greater than the adjacent element.
+     */
+    public static void insertionSort(UnsortedArray arr){
+        int n = arr.randomNums.length;
+        for(int i = 1; i < n; ++i){
+            int key = arr.randomNums[i];
+            int j = i-1;
+            //Move elements of the array that are greater than the key
+            //to one position ahead of their current position
+            while(j >= 0 && arr.randomNums[j] > key){
+                arr.randomNums[j+1] = arr.randomNums[j];
+                j = j -1;
+            }
+            arr.randomNums[j+1] = key;
+        }
+    }
+
+    /*
+    Bubble sort
+     */
+    public static void bubbleSort(UnsortedArray arr, int n){
+        int i;
+        int j;
+        int temp;
+        //Bubble sort relies on a boolean value to check if adjacent values
+        //are out of order, and if they are, swaps them
+        boolean swapped;
+        for(i = 0; i < n-1; i++){
+            //when the values are not swapped
+            swapped = false;
+            for(j = 0; j < n-i-1; j++){
+                if(arr.randomNums[j] > arr.randomNums[j+1]){
+                    //Swap j and j+1
+                    temp = arr.randomNums[j];
+                    arr.randomNums[j] = arr.randomNums[j+1];
+                    arr.randomNums[j+1] = temp;
+                    //Now, the boolean is true because adjacent values have been swapped
+                    swapped = true;
+                }
+            }
+            if(!swapped)
+                break;
+        }
+    }
+}
