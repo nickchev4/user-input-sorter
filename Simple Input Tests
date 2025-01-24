@@ -1,0 +1,40 @@
+package org.example;
+
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import static org.junit.Assert.*;
+
+/*
+    Test class for the UnsortedArray objects that insures that user input
+    is stored accordingly and exceptions are thrown if input is invalid.
+ */
+
+public class UnsortedArrayTests {
+    UnsortedArray testArr = new UnsortedArray();
+    //Tests if the user input array size is valid and stored correctly
+
+        @Test
+        public void testInvalidSize() {
+            //Simulates non-integer input
+            testArr.sc = new Scanner("Seven");
+            InputMismatchException thrown = assertThrows(InputMismatchException.class, ()
+            -> { testArr.storeNumbers();});
+            assertEquals("Array size must be an integer", thrown.getMessage());
+        }
+
+        @Test
+        public void testInvalidElement() {
+            //Simulates a proper integer sequence for size
+            // (where n=3 and iterates n times) but a String element inserted
+            testArr.sc = new Scanner("3\n1\n2\nThree");
+            InputMismatchException thrown = assertThrows(InputMismatchException.class, ()
+                    -> { testArr.storeNumbers();});
+            assertEquals("Elements of the array must be integers", thrown.getMessage());
+
+        }
+
+    }
